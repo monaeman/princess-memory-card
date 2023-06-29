@@ -1,8 +1,30 @@
 const gridContainer = document.querySelector(".grid-container");
 let firstCard, secondCard;
 let lockBoard = false;
-let score = 0;
-document.querySelector(".score").textContent = score;
+//let score = 0;
+
+
+// Create player objects
+const player1 = {
+    player: document.querySelector(".player1"),
+    name: document.querySelector(".player1-name"),
+    score: document.querySelector(".player1-score-value"),
+    
+   
+  };
+  
+  const player2 = {
+    player: document.querySelector(".player1"),
+    name: document.querySelector(".player1-name"),
+    score: document.querySelector(".player1-score-value"),
+    
+  };
+
+  const initialScores = () =>{
+    player1.score.innerText = 0;
+    player2.score.innerText = 0;
+  }
+
 
 //fetch("./data/cards.json")
 //.then((res) => res.json())
@@ -35,7 +57,9 @@ const cards = [
 ];
 shuffleCards();
 generateCards();
-
+//nextPlayer()
+//updateScore1();
+//updateScore2();
 //console.log(cards);
 //cards.push(...card);
 function shuffleCards(){
@@ -57,7 +81,7 @@ function generateCards() {
         const cardElement= document.createElement("div");
         cardElement.classList.add("card");
         cardElement.setAttribute("data-name", card);
-        console.log(card);
+        //console.log(card);
         cardElement.innerHTML =
         ` <div class = "front">
              <img class = " front-image" src= ${card} />
@@ -66,11 +90,54 @@ function generateCards() {
              gridContainer.appendChild(cardElement);
              cardElement.addEventListener("click", flipCard);
     }
+/*console.log("Player 1 starts");
+for (player1){
+   if (checkForMatch() == false){
+       console.log("player2 turn");
+
+    }
+}*/
 }
+
+function checkForMatch(){
+    let isMatch = firstCard.dataset.name === secondCard.dataset.name;
+
+    isMatch ? disableCards() : unflipCards();
+    //document.querySelector(".score").textContent = score;
+}
+
+//function nextPlayer()
+   
+
+
+    /*for (player1){
+    if (checkForMatch() == false){
+        console.log("player2 turn");
+        flipCard();
+    }
+
+    else { 
+
+
+    }
+   }
+        
+    flipCard(player2)
+    }
+
+     else if (player2.checkForMatch() = false) {
+        flipCard(player1)
+    }
+
+
+}
+*/
 
 function flipCard(){
 
     if (lockBoard) return;
+   // console.log("FIRST CARD-", firstCard)
+  //  console.log("conseloging-",this === firstCard)
     if (this === firstCard) return;
 
     this.classList.add("flipped");
@@ -81,6 +148,9 @@ function flipCard(){
     }
 
     secondCard = this;
+   // console.log("secondCard-", secondCard)
+  //  console.log("conseloging-", this === secondCard)
+
         
     //score+=1;
        
@@ -93,7 +163,7 @@ function flipCard(){
 }
 
 function checkForMatch(){
-    let isMatch = firstCard.dataset.name === secondCard.dataset.name;
+   let isMatch = firstCard.dataset.name === secondCard.dataset.name;
 
     isMatch ? disableCards() : unflipCards();
     //document.querySelector(".score").textContent = score;
@@ -113,7 +183,8 @@ function unflipCards(){
    firstCard.classList.remove("flipped");
    secondCard.classList.remove("flipped");
    if(firstCard== secondCard){
-    updateScore() 
+    updateScore1();
+    updateScore2();
    
   
      //score++;
@@ -140,24 +211,25 @@ function restart(){
     generateCards();
 }
 
-// Create player objects
-const player1 = {
-    name: "Player 1",
-    score: 0
-  };
-  
-  const player2 = {
-    name: "Player 2",
-    score: 0
-  };
-  
-  // Function to update the score for a player
-function updateScore(player, score) {
-   // score++;
+
+  // Function to update the score for  player1
+function updateScore1(player1, score) {
+    score =0;
+    score++;
    document.querySelector(".score").textContent = score;
-    player.score= score++;
-console.log(player.score);
+   // player.score= score++;
+console.log(player1.score);
   }
+
+  // Function to update the score for  player2
+function updateScore2(player2, score) {
+   score =0;
+    score++;
+   document.querySelector(".score").textContent = score;
+   // player.score= score++;
+console.log(player2.score);
+  }
+
   
   // Example usage
  // updateScore(player1, 1); // Increase Player 1's score by 1
@@ -166,10 +238,9 @@ console.log(player.score);
  // console.log(player1.score); 
 // console.log(player2.score);
 
-console.log(firstCard);
-console.log(secondCard);
+//console.log(firstCard);
+//console.log(secondCard);
   
 
-  
   
   
