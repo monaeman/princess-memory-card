@@ -61,9 +61,9 @@ const cards = [
   "images/princess-9.jpeg",
   "images/princess-10.jpeg",
 ];
-//restart();
-shuffleCards();
-generateCards();
+restart();
+//shuffleCards();
+//generateCards();
 
 //checkForMatch();
 //updateScore1();
