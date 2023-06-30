@@ -61,7 +61,7 @@ const cards = [
   "images/princess-9.jpeg",
   "images/princess-10.jpeg",
 ];
-restart();
+//restart();
 shuffleCards();
 generateCards();
 
