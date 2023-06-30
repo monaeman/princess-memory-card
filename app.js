@@ -8,6 +8,7 @@ let score = {
   player1: 0,
   player2: 0,
 };
+let flippedCards = 0;
 
 /*const player1 = {
     score: player1Score
@@ -40,7 +41,7 @@ const initialScores = () => {
 //.then((res) => res.json())
 //.then((images) => {
 const cards = [
-  "images/princess-1.jpeg",
+  /*"images/princess-1.jpeg",
   "images/princess-2.jpeg",
   "images/princess-3.jpeg",
   "images/princess-4.jpeg",
@@ -48,9 +49,9 @@ const cards = [
   "images/princess-6.jpeg",
   "images/princess-7.jpeg",
   "images/princess-8.jpeg",
-  "images/princess-9.jpeg",
+  */ "images/princess-9.jpeg",
   "images/princess-10.jpeg",
-  "images/princess-1.jpeg",
+  /* "images/princess-1.jpeg",
   "images/princess-2.jpeg",
   "images/princess-3.jpeg",
   "images/princess-4.jpeg",
@@ -58,10 +59,11 @@ const cards = [
   "images/princess-6.jpeg",
   "images/princess-7.jpeg",
   "images/princess-8.jpeg",
-  "images/princess-9.jpeg",
+ */ "images/princess-9.jpeg",
   "images/princess-10.jpeg",
 ];
 restart();
+//checkWinState();
 //shuffleCards();
 //generateCards();
 
@@ -152,7 +154,11 @@ The function then calls checkForMatch() to check if the two flipped cards match.
 
 */
 function flipCard() {
-  if (lockBoard) return;
+  if (lockBoard || flippedCards === cards.length) {
+    // checkWinState();
+    console.log("All the cards are flipped");
+    return;
+  }
   // console.log("FIRST CARD-", firstCard)
   //  console.log("conseloging-",this === firstCard)
   if (this === firstCard) return;
@@ -168,6 +174,7 @@ function flipCard() {
 
   lockBoard = true;
   checkForMatch();
+  checkWinState();
 }
 
 function nextPlayer() {
@@ -200,6 +207,7 @@ function checkForMatch() {
 
   if (isMatch) {
     disableCards();
+    flippedCards += 2;
     if (currentPlayer == "player1") {
       updateScore1();
     } else {
@@ -208,6 +216,23 @@ function checkForMatch() {
   } else {
     unflipCards();
     nextPlayer();
+  }
+}
+
+function checkWinState() {
+  console.log("checkWinState()");
+  if (flippedCards === cards.length) {
+    // All cards are flipped
+    if (score.player1 > score.player2) {
+      alert("Player 1 wins!");
+      console.log("Player 1 wins!");
+    } else if (score.player1 < score.player2) {
+      alert("Player 2 wins!");
+      console.log("player 2 wins!");
+    } else {
+      alert("It's a tie!");
+      console.log("it's a tie");
+    }
   }
 }
 
@@ -220,9 +245,18 @@ This ensures that the matched cards remain revealed and cannot be clicked again
 function disableCards() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
-
+  checkWinState();
   resetBoard();
+  /*document
+    .getElementById("firstCard")
+    .addEventListener("click", cardclick, false);
+  document
+    .getElementById("secondCard")
+    .addEventListener("click", cardclick, false);
+*/
+  //checkWinState();
 }
+
 /* 
 unflipCards():
 This function is called when there is no match between two cards.
@@ -235,6 +269,7 @@ function unflipCards() {
     secondCard.classList.remove("flipped");
 
     resetBoard();
+    checkWinState();
   }, 1000);
 }
 
@@ -266,6 +301,7 @@ function restart() {
   player2Score.textContent = 0;
   gridContainer.innerHTML = "";
   generateCards();
+  // checkWinState();
 }
 
 // Start the game with player1
