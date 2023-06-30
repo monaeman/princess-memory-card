@@ -1,30 +1,47 @@
-const gridContainer = document.querySelector(".grid-container");
+const gridContainer = document.querySelector('.grid-container');
 let firstCard, secondCard;
+let currentPlayer;
 let lockBoard = false;
-//let score = 0;
+const player1Score = document.querySelector('.player1-score-value');
+const player2Score = document.querySelector('.player2-score-value');
+let score = {
+  player1: 0,
+  player2: 0
+};
 
-
-// Create player objects
 const player1 = {
-    player: document.querySelector(".player1"),
-    name: document.querySelector(".player1-name"),
-    score: document.querySelector(".player1-score-value"),
-    
-   
+    score: player1Score
   };
   
   const player2 = {
-    player: document.querySelector(".player1"),
-    name: document.querySelector(".player1-name"),
-    score: document.querySelector(".player1-score-value"),
+    score: player2Score
+  };
+
+
+/* Create player objects
+const player1 = {
+    player: document.querySelector('.player1'),
+    name: document.querySelector('.player1-name'),
+    score: document.querySelector('.player1-score-value'),
     
+
+    
+   
+  }
+  
+  const player2 = {
+    player: document.querySelector('.player2'),
+    name: document.querySelector('.player2-name'),
+    score: document.querySelector('.player2-score-value'),
+   
+
   };
 
   const initialScores = () =>{
     player1.score.innerText = 0;
-    player2.score.innerText = 0;
+   player2.score.innerText = 0;
   }
-
+*/
 
 //fetch("./data/cards.json")
 //.then((res) => res.json())
@@ -32,36 +49,72 @@ const player1 = {
 const cards = [
    
       
-        "images/princess-1.jpeg",
-        "images/princess-2.jpeg",
-        "images/princess-3.jpeg",
-        "images/princess-4.jpeg",
-        "images/princess-5.jpeg",
-        "images/princess-6.jpeg",
-        "images/princess-7.jpeg",
-        "images/princess-8.jpeg",
-        "images/princess-9.jpeg",
-        "images/princess-10.jpeg", 
-        "images/princess-1.jpeg",
-        "images/princess-2.jpeg",
-        "images/princess-3.jpeg",
-        "images/princess-4.jpeg",
-        "images/princess-5.jpeg",
-        "images/princess-6.jpeg",
-        "images/princess-7.jpeg",
-        "images/princess-8.jpeg",
-        "images/princess-9.jpeg",
-        "images/princess-10.jpeg", 
+        'images/princess-1.jpeg',
+        'images/princess-2.jpeg',
+        'images/princess-3.jpeg',
+        'images/princess-4.jpeg',
+        'images/princess-5.jpeg',
+        'images/princess-6.jpeg',
+        'images/princess-7.jpeg',
+        'images/princess-8.jpeg',
+        'images/princess-9.jpeg',
+        'images/princess-10.jpeg', 
+        'images/princess-1.jpeg',
+        'images/princess-2.jpeg',
+        'images/princess-3.jpeg',
+        'images/princess-4.jpeg',
+        'images/princess-5.jpeg',
+        'images/princess-6.jpeg',
+        'images/princess-7.jpeg',
+        'images/princess-8.jpeg',
+        'images/princess-9.jpeg',
+        'images/princess-10.jpeg', 
     
     
 ];
+
 shuffleCards();
 generateCards();
-//nextPlayer()
+//checkForMatch();
 //updateScore1();
 //updateScore2();
-//console.log(cards);
-//cards.push(...card);
+
+
+
+/*   
+updateScore1():
+This function updates the score for player 1 by incrementing the score.player1 variable by 1.
+It updates the corresponding HTML element, player1Score, to display the updated score.
+
+*/
+// Update score for player1
+function updateScore1() {
+    score.player1 ++;
+    player1Score.textContent = score.player1;
+    console.log(score.player1)
+  }
+
+
+  /* 
+  updateScore2():
+This function updates the score for player 2 by incrementing the score.player2 variable by 1.
+It updates the corresponding HTML element, player2Score, to display the updated score.
+  
+  */
+  
+  // Update score for player2
+  function updateScore2() {
+    score.player2 ++;
+    player2Score.textContent = score.player2;
+    console.log(score.player2)
+  }
+
+
+//shuffleCards():
+//This function shuffles the cards array using the Fisher-Yates algorithm.
+//It uses a while loop to iterate over the array and swap each element with a randomly chosen element.
+//This ensures that the cards are randomly ordered for each game.
+
 function shuffleCards(){
     let currentIndex = cards.length,
     randomIndex,
@@ -75,7 +128,13 @@ function shuffleCards(){
 
     }
 }
-
+/*
+generateCards():
+This function dynamically generates HTML elements for each card and appends them to the gridContainer element.
+It iterates over the cards array and creates a <div> element for each card.
+The card element is given the appropriate CSS classes and a data-name attribute to store the card's image data.
+Event listeners are added to each card element to handle the click event and call the flipCard() function.
+*/
 function generateCards() {
     for (let card of cards){
         const cardElement= document.createElement("div");
@@ -83,56 +142,34 @@ function generateCards() {
         cardElement.setAttribute("data-name", card);
         //console.log(card);
         cardElement.innerHTML =
-        ` <div class = "front">
+        ` <div class = "front"  = >
              <img class = " front-image" src= ${card} />
              </div>
              <div class = " back"> </div> `;
              gridContainer.appendChild(cardElement);
              cardElement.addEventListener("click", flipCard);
     }
-/*console.log("Player 1 starts");
-for (player1){
-   if (checkForMatch() == false){
-       console.log("player2 turn");
-
-    }
-}*/
 }
 
-function checkForMatch(){
-    let isMatch = firstCard.dataset.name === secondCard.dataset.name;
-
-    isMatch ? disableCards() : unflipCards();
-    //document.querySelector(".score").textContent = score;
-}
-
-//function nextPlayer()
-   
 
 
-    /*for (player1){
-    if (checkForMatch() == false){
-        console.log("player2 turn");
-        flipCard();
-    }
+//function checkForMatch(){
+   // let isMatch = firstCard.dataset.name == secondCard.dataset.name;
 
-    else { 
-
-
-    }
-   }
-        
-    flipCard(player2)
-    }
-
-     else if (player2.checkForMatch() = false) {
-        flipCard(player1)
-    }
+   // isMatch ? disableCards() : unflipCards();
+   // document.querySelector(".score").textContent = score;
+//}
 
 
-}
-*/
+/*
+flipCard():
+This function is called when a card is clicked.
+It adds the CSS class "flipped" to the clicked card element to reveal the front face of the card.
+If it's the first card flipped (firstCard is null), it assigns the clicked card element to firstCard.
+If it's the second card flipped (firstCard is already assigned), it assigns the clicked card element to secondCard.
+The function then calls checkForMatch() to check if the two flipped cards match.
 
+*/ 
 function flipCard(){
 
     if (lockBoard) return;
@@ -148,13 +185,10 @@ function flipCard(){
     }
 
     secondCard = this;
-   // console.log("secondCard-", secondCard)
-  //  console.log("conseloging-", this === secondCard)
+   
 
         
-    //score+=1;
-       
-     //document.querySelector(".score").textContent = score;
+    
     lockBoard = true;
     checkForMatch();
 
@@ -162,12 +196,55 @@ function flipCard(){
     
 }
 
-function checkForMatch(){
-   let isMatch = firstCard.dataset.name === secondCard.dataset.name;
+function nextPlayer() {
+    if (!checkForMatch()) {
+      if (currentPlayer === 'player1') {
+        currentPlayer = 'player2';
+        player1.player.classList.remove('active');
+        player2.player.classList.add('active');
+      } else {
+        currentPlayer = 'player1';
+        player2.player.classList.remove('active');
+        player1.player.classList.add('active');
+      }
+    }
 
-    isMatch ? disableCards() : unflipCards();
-    //document.querySelector(".score").textContent = score;
-}
+    updateScore1();
+    updateScore2();
+  }
+
+
+  /*
+  checkForMatch():
+This function is called after two cards are flipped.
+It checks if the data-name attribute of firstCard matches the data-name attribute of secondCard.
+If there is a match, it calls disableCards() to disable the matched cards and updates the score for the current player using updateScore1() or updateScore2() depending on the current player.
+If there is no match, it calls unflipCards() to flip the cards back.
+  */
+
+  function checkForMatch() {
+    let isMatch = firstCard.dataset.name === secondCard.dataset.name;
+  
+    if (isMatch) {
+      disableCards();
+      if ( currentPlayer == 'player1') {
+        updateScore1();
+      } else {
+        updateScore2();
+      }
+    } else {
+      unflipCards();
+    }
+  
+    return isMatch;
+  }
+  
+  
+/*   disableCards():
+This function is called when there is a match between two cards.
+It removes the click event listeners from both firstCard and secondCard to prevent further clicks on them.
+This ensures that the matched cards remain revealed and cannot be clicked again
+*/ 
 
 function disableCards() {
 
@@ -176,24 +253,28 @@ function disableCards() {
     
     resetBoard();
 }
-
+/* 
+unflipCards():
+This function is called when there is no match between two cards.
+It adds a short delay using setTimeout() before removing the "flipped" CSS class from both firstCard and secondCard.
+This visually flips the unmatched cards back to their initial state.
+*/
 function unflipCards(){
 
     setTimeout(() => {
    firstCard.classList.remove("flipped");
    secondCard.classList.remove("flipped");
-   if(firstCard== secondCard){
-    updateScore1();
-    updateScore2();
    
-  
-     //score++;
-  //document.querySelector(".score").textContent = score;
-       }
-
    resetBoard();
  }, 1000 );
 }
+
+
+/* 
+resetBoard():
+This function is called after each turn or when restarting the game.
+It resets the firstCard, secondCard, and lockBoard variables to their initial states.
+*/ 
 
 function resetBoard(){
     firstCard = null;
@@ -201,46 +282,26 @@ function resetBoard(){
     lockBoard = false;
 }
 
-function restart(){
 
+/* 
+restart():
+This function is called when restarting the game.
+It resets the board by calling resetBoard(), shuffles the cards using shuffleCards(), and resets the scores to 0.
+It updates the HTML elements player1Score and player2Score to display the
+*/
+
+function restart() {
     resetBoard();
     shuffleCards();
-    score = 0;
-    document.querySelector(".score").textContent = score;
-    gridContainer.innerHTML = "";
+    score.player1 = 0;
+    score.player2 = 0;
+    player1Score.textContent = 0;
+    player2Score.textContent = 0;
+    gridContainer.innerHTML = '';
     generateCards();
-}
-
-
-  // Function to update the score for  player1
-function updateScore1(player1, score) {
-    score =0;
-    score++;
-   document.querySelector(".score").textContent = score;
-   // player.score= score++;
-console.log(player1.score);
   }
 
-  // Function to update the score for  player2
-function updateScore2(player2, score) {
-   score =0;
-    score++;
-   document.querySelector(".score").textContent = score;
-   // player.score= score++;
-console.log(player2.score);
-  }
+// Start the game with player1
+player1.player.classList.add('active');
 
-  
-  // Example usage
- // updateScore(player1, 1); // Increase Player 1's score by 1
-  //updateScore(player2, 1); // Increase Player 2's score by 2
-  
- // console.log(player1.score); 
-// console.log(player2.score);
-
-//console.log(firstCard);
-//console.log(secondCard);
-  
-
-  
-  
+ 
