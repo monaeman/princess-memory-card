@@ -57,8 +57,4 @@ resetBoard(): Resets the firstCard, secondCard, and lockBoard variables to their
 restart(): Restarts the game by resetting the board, shuffling the cards, and resetting the scores.
 Customization
 
-###### To customize the game, you can modify the following parts of the code
 
-The cards array: Replace the image URLs in the array with your own images or modify the existing ones.
-HTML elements and classes: Modify the HTML structure and CSS classes to change the appearance and layout of the game.
-Enjoy playing the memory card game!
