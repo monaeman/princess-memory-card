@@ -5,8 +5,8 @@ track of the scores for two players and determines the winner based on the numbe
 
 ###### How to Play
 
-Open the index.html file in a web browser.
-The game starts with Player 1. Player 1's score is displayed on the left side of the screen, while Player 2's score is displayed on the right side.
+
+The game starts with Player 1.
 Click on a card to flip it and reveal the image on the front face.
 Click on another card to flip it.
 If the two flipped cards match, they will remain face up, and the score for the current player will be incremented by 1.
