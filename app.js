@@ -41,7 +41,7 @@ const initialScores = () => {
 //.then((res) => res.json())
 //.then((images) => {
 const cards = [
-  /*"images/princess-1.jpeg",
+  "images/princess-1.jpeg",
   "images/princess-2.jpeg",
   "images/princess-3.jpeg",
   "images/princess-4.jpeg",
@@ -49,9 +49,9 @@ const cards = [
   "images/princess-6.jpeg",
   "images/princess-7.jpeg",
   "images/princess-8.jpeg",
-  */ "images/princess-9.jpeg",
+  "images/princess-9.jpeg",
   "images/princess-10.jpeg",
-  /* "images/princess-1.jpeg",
+  "images/princess-1.jpeg",
   "images/princess-2.jpeg",
   "images/princess-3.jpeg",
   "images/princess-4.jpeg",
@@ -59,7 +59,7 @@ const cards = [
   "images/princess-6.jpeg",
   "images/princess-7.jpeg",
   "images/princess-8.jpeg",
- */ "images/princess-9.jpeg",
+  "images/princess-9.jpeg",
   "images/princess-10.jpeg",
 ];
 restart();
@@ -176,6 +176,8 @@ function flipCard() {
   checkForMatch();
   checkWinState();
 }
+// currentPlayer starts with player1 then is tested in CheckForMatch().
+//using an inner function updateScore1 & 2.
 
 function nextPlayer() {
   if (currentPlayer === "player1") {
@@ -220,7 +222,7 @@ function checkForMatch() {
 }
 
 function checkWinState() {
-  console.log("checkWinState()");
+  //console.log("checkWinState()");
   if (flippedCards === cards.length) {
     // All cards are flipped
     if (score.player1 > score.player2) {
